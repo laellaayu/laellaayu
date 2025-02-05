@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Peminjaman Buku Perpustakaan</title>
+  <style>
+    /* CSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+    }
+
+    button {
+      background-color: blueviolet;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
+      background-color: blueviolet;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: blueviolet;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Daftar Peminjaman Buku</h2>
+    <form id="loanForm">
+      <input type="text" id="name" placeholder="Nama Peminjam" required>
+      <input type="text" id="bookTitle" placeholder="Judul Buku" required>
+      <input type="date" id="loanDate" required>
+      <button type="button" onclick="addLoan()">Tambah Peminjaman</button>
+    </form>
+
+    <div class="table-container">
+      <table id="loanTable">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Peminjam</th>
+            <th>Judul Buku</th>
+            <th>Tanggal Peminjaman</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data peminjaman akan ditambahkan di sini -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript
+    let loanCounter = 1;
+
+    function addLoan() {
+      // Mengambil nilai dari form
+      const name = document.getElementById('name').value;
+      const bookTitle = document.getElementById('bookTitle').value;
+      const loanDate = document.getElementById('loanDate').value;
+
+      // Validasi input
+      if (name === '' || bookTitle === '' || loanDate === '') {
+        alert("Mohon lengkapi semua data.");
+        return;
+      }
+
+      // Mendapatkan tabel dan menambah baris baru
+      const table = document.getElementById('loanTable').getElementsByTagName('tbody')[0];
+      const newRow = table.insertRow();
+
+      newRow.insertCell(0).textContent = loanCounter++;
+      newRow.insertCell(1).textContent = name;
+      newRow.insertCell(2).textContent = bookTitle;
+      newRow.insertCell(3).textContent = loanDate;
+
+      // Mengosongkan form setelah penambahan data
+      document.getElementById('loanForm').reset();
+    }
+  </script>
+</body>
